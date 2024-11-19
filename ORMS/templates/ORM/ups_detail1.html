@@ -1,0 +1,21 @@
+
+{% extends "ORM/base.html" %} 
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da UPS</title>
+</head>
+<body>
+    <h1>Detalhes da UPS</h1>
+    <p><strong>Nome:</strong> {{ ups.nome_ds }}</p>
+    <p><strong>Data:</strong> {{ ups.data_hora }}</p>
+
+    <p><strong>Potência:</strong> {{ ups.potencia_ds }}</p>
+    <p><strong>Observação:</strong> {{ ups.observacao }}</p>
+    <a href="{% url 'ups_list' %}">Voltar para a lista</a>
+</body>
+</html>
+{% endblock %}

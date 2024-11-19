@@ -38,26 +38,26 @@
     <h3>Detalhes KPI UPS</h3>
 
     <p><strong>Sala de UPS:</strong> {{ ups.sala }}</p>
-    <p><strong>Nome DS:</strong> {{ ups.nome_ds }}</p>
-    <p><strong>Potência Ativa do DS:</strong> {{ ups.potencia_ds }} Kw</p>
+    <p><strong>Nome do painel DS:</strong> {{ ups.nome_ds }}</p>
+    <p><strong>Potência Ativa do DS:</strong> {{ ups.potencia_ds }} Mw</p>
     {% if ups.imagem_ds %}
         <p><strong>Imagem Potência Ativa do DS:</strong></p>
         <img src="{{ ups.imagem_ds.url }}" alt="Imagem DS de {{ ups.sala }}" style="max-width: 300px;">
     {% else %}
         <p>Sem imagem DS disponível.</p>
     {% endif %}
-    <p><strong>ENERGIA Ativa da ETE:</strong> {{ ups.energia_ete }} Kw</p>
+    <p><strong>Energia Ativa da ETE:</strong> {{ ups.energia_ete }} Kw/h</p>
     {% if ups.imagem_ete %}
         <p><strong>Imagem Potência Ativa do DS:</strong></p>
-        <img src="{{ ups.imagem_ete.url }}" alt="Imagem Energia ativa da ETE style="max-width: 300px;">
+        <img src="{{ ups.imagem_ete.url }}" alt="Imagem Energia ativa da ETE" style="max-width: 300px;">
     {% else %}
         <p>Sem imagem ETE disponível.</p>
     {% endif %}
 
-    <p><strong>ENERGIA Ativa da Portaria:</strong> {{ ups.energia_portaria }} Kw</p>
+    <p><strong>Energia Ativa da Portaria:</strong> {{ ups.energia_portaria }} Mw/h</p>
     {% if ups.imagem_ete %}
         <p><strong>Imagem Energia Ativa da Portaria:</strong></p>
-        <img src="{{ ups.imagem_portaria.url }}" alt="Imagem Energia ativa da Portaria style="max-width: 300px;">
+        <img src="{{ ups.imagem_portaria.url }}" alt="Imagem Energia ativa da Portaria" style="max-width: 300px;">
     {% else %}
         <p>Sem imagem Portaria disponível.</p>
     {% endif %}
@@ -73,7 +73,7 @@
         <p>Sem imagem UPS 1 disponível.</p>
     {% endif %}
     <p><strong>Código 1:</strong> {{ ups.cod1 }}</p>
-    <p><strong>Energia COD1:</strong> {{ ups.energia_cod1 }} MW</p>
+    <p><strong>Energia Ativa COD1:</strong> {{ ups.energia_cod1 }} MW/h</p>
     {% if ups.imagem_cod1 %}
         <p><strong>Imagem Código 1:</strong></p>
         <img src="{{ ups.imagem_cod1.url }}" alt="Imagem Código 1" style="max-width: 300px;">
@@ -82,14 +82,14 @@
     {% endif %}
     {% if ups.imagem_cod1z %}
         <p><strong>Imagem COD1 Zerado:</strong></p>
-        <img src="{{ ups.imagem_cod1z.url }}" alt="Imagem COD1 Zerado" style="max-width: 300px;">
+        <img src="{{ ups.imagem_cod1z.url }}" alt="Imagem COD1 (Zerado)" style="max-width: 300px;">
     {% else %}
         <p>Sem imagem COD1 zerado disponível.</p>
     {% endif %}
 
     <h3>UPS2</h3>
     <p><strong>UPS2:</strong> {{ ups.ups2 }}</p>
-    <p><strong>Potência Ativa UPS 2:</strong> {{ ups.potencia_ups2 }} Kw</p>
+    <p><strong>Potência Ativa UPS 2:</strong> {{ ups.potencia_ups2 }} Kw/h</p>
     {% if ups.imagem_ups2 %}
         <p><strong>Imagem UPS2:</strong></p>
         <img src="{{ ups.imagem_ups2.url }}" alt="Imagem UPS 2" style="max-width: 300px;">
@@ -97,7 +97,7 @@
         <p>Sem imagem UPS2 disponível.</p>
     {% endif %}
     <p><strong>COD2:</strong> {{ ups.cod2 }}</p>
-    <p><strong>Energia COD 2:</strong> {{ ups.energia_cod2 }} Kw</p>
+    <p><strong>Energia COD 2:</strong> {{ ups.energia_cod2 }} Kw/h</p>
     {% if ups.imagem_cod2 %}
         <p><strong>Imagem COD2:</strong></p>
         <img src="{{ ups.imagem_cod2.url }}" alt="Imagem COD2" style="max-width: 300px;">
@@ -106,7 +106,7 @@
     {% endif %}
     {% if ups.imagem_cod2z %}
         <p><strong>Imagem COD2 Zerado:</strong></p>
-        <img src="{{ ups.imagem_cod2z.url }}" alt="Imagem COD2 Zerado" style="max-width: 300px;">
+        <img src="{{ ups.imagem_cod2z.url }}" alt="Imagem COD2 (Zerado)" style="max-width: 300px;">
     {% else %}
         <p>Sem imagem COD2 zerado disponível.</p>
     {% endif %}

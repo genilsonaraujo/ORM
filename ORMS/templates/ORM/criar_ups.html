@@ -104,14 +104,14 @@ input[type="number"]:focus {
             {{ form.potencia_ds.label_tag }}
             <div>
                 {{ form.potencia_ds }}</div>
-            <div class="field-info">Potência Nominal do Painel DS em (Kwatts).</div>
+            <div class="field-info">Potência Nominal do Painel DS em (Mw).</div>
         </div>
 
         <!-- Campo: Imagem DS -->
         <div>
             {{ form.imagem_ds.label_tag }}
             <div>{{ form.imagem_ds }}</div>
-            <div class="field-info">Imagem Potência Sepam do Painel DS.</div>
+            <div class="field-info">Imagem Potência Sepam do Painel DS, Se em Kw Divida por 1000.</div>
         </div>
         <!-- Campo: Nome ETE -->
         <!--<div>
@@ -145,7 +145,7 @@ input[type="number"]:focus {
         <div>
             {{ form.imagem_.label_tag }}
             <div>{{ form.imagem_ete }}</div>
-            <div class="field-info">Imagem Energia Ativa ETE.</div>
+            <div class="field-info">Imagem Energia Ativa ETE(kw/h).</div>
         </div>
         <!-- Campo: UPS 1 -->
         <div>
@@ -228,7 +228,7 @@ input[type="number"]:focus {
         <div>
             {{ form.energia_cod2.label_tag }}
             <div>{{ form.energia_cod2 }}</div>
-            <div class="field-info">Quantidade de energia fornecida pelo componente 2.</div>
+            <div class="field-info">Quantidade de energia fornecida pelo COD2.</div>
         </div>
 
         <!-- Campo: Imagem Código 2 -->
@@ -256,7 +256,7 @@ input[type="number"]:focus {
         <div>
             {{ form.nome_tecnico.label_tag }}
             <div>{{ form.nome_tecnico }}</div>
-            <div class="field-info">Nome do técnico responsável pela configuração.</div>
+            <div class="field-info">Nome do técnico responsável pelo formulário.</div>
         </div>
 
         <!-- Campo: Data e Hora -->

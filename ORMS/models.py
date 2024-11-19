@@ -110,26 +110,26 @@ class MeuModelo(models.Model):
 class SalaUps(models.Model):
     sala = models.CharField(max_length=10)
     nome_ds = models.CharField(max_length=5)
-    potencia_ds = models.IntegerField()
+    potencia_ds = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     imagem_ds = models.ImageField(upload_to='imagens/')
     #nome_ete = models.CharField(max_length=5)
-    energia_ete = models.IntegerField(default=0)
+    energia_ete = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     imagem_ete = models.ImageField(upload_to='imagens/', blank=True)
     #nome_portaria = models.CharField(max_length=5)
-    energia_portaria = models.IntegerField(default=0)
-    imagem_portaria = models.ImageField(upload_to='imagens/', blank=True)
+    energia_portaria = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    imagem_portaria = models.ImageField(upload_to='imagens/', default="imagens/default.png", blank=True)
     ups1 = models.IntegerField()
     potencia_ups1 = models.IntegerField()
     imagem_ups1 = models.ImageField(upload_to='imagens/')
     cod1 = models.IntegerField()
-    energia_cod1 = models.IntegerField()
+    energia_cod1 = models.DecimalField(max_digits=10, decimal_places=2)
     imagem_cod1 = models.ImageField(upload_to='imagens/')
     imagem_cod1z = models.ImageField(upload_to='imagens/')#cod1 zerado
     ups2 = models.IntegerField()
     potencia_ups2 = models.IntegerField()
     imagem_ups2 = models.ImageField(upload_to='imagens/')
     cod2 = models.IntegerField()
-    energia_cod2 = models.IntegerField()
+    energia_cod2 = models.DecimalField(max_digits=10, decimal_places=2)
     imagem_cod2 = models.ImageField(upload_to='imagens/')
     imagem_cod2z = models.ImageField(upload_to='imagens/')#cod2 zerado
     observacao = models.TextField(max_length=100)
@@ -138,6 +138,7 @@ class SalaUps(models.Model):
 
     def __str__(self):
         return self.ups 
+        #return self.data_hora.strftime("%d/%m/%Y %H:%M:%S")  # Exemplo: 19/11/2024 14:30:15
 #class Saida(models.Model):
     #data_saida = models.DateTimeField(auto_now_add=True)
     #observacao = models.CharField(max_length=255, blank=True)

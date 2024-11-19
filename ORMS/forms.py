@@ -41,10 +41,17 @@ class SalaUpsForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Tornar os campos específicos não obrigatórios
+        self.fields['potencia_ds'].required = False
         self.fields['energia_ete'].required = False
         self.fields['imagem_ete'].required = False
         self.fields['energia_portaria'].required = False
-        self.fields['imagem_portaria'].required = False  
+        self.fields['imagem_portaria'].required = False
+        self.fields['ups1'].required = False
+        self.fields['potencia_ups1'].required = False
+        self.fields['imagem_ups1'].required = False
+        self.fields['ups2'].required = False
+        self.fields['potencia_ups2'].required = False
+        self.fields['imagem_ups2'].required = False  
      # Defina as opções para o campo de seleção
     OPÇÕES = [
         ('opcao1', 'MS-A'),

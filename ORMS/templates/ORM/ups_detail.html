@@ -1,21 +1,127 @@
+{% extends 'ORM/base.html' %}
 
-{% extends "ORM/base.html" %} 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes da UPS</title>
-</head>
-<body>
-    <h1>Detalhes da UPS</h1>
-    <p><strong>Nome:</strong> {{ ups.nome_ds }}</p>
-    <p><strong>Data:</strong> {{ ups.data_hora }}</p>
+<style>
+    /* Estiliza o formulário */
+    p {
+        margin-left: 30px; /* Margem à esquerda para o formulário */
+    }
+    h3 {
+        margin-left: 30px; /* Margem à esquerda para o formulário */
+    }
+    /* Remove a margem inferior dos parágrafos dentro do formulário */
+    img {
+        margin-left: 30px; /* Margem à esquerda para o formulário */
+    }
+    img {
+        margin-bottom: 10px; /* Ajuste o valor conforme necessário */
+    }
+    p {
+        margin-bottom: 10px; /* Ajuste o valor conforme necessário */
+    }
+    
+    body {
+        background-color: rgb(172, 180, 189);
+    }
 
-    <p><strong>Potência:</strong> {{ ups.potencia_ds }}</p>
+    .field-info {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+</style>
+    <!-- Espaço adicional -->
+    <div style="height: 60px;"></div>
+    </div>
+
+    <h3 style="margin-left: 30px">Sala</h3>
+    <h3>Detalhes KPI UPS</h3>
+
+    <p><strong>Sala de UPS:</strong> {{ ups.sala }}</p>
+    <p><strong>Nome do painel DS:</strong> {{ ups.nome_ds }}</p>
+    <p><strong>Potência Ativa do DS:</strong> {{ ups.potencia_ds }} Mw</p>
+    {% if ups.imagem_ds %}
+        <p><strong>Imagem Potência Ativa do DS:</strong></p>
+        <img src="{{ ups.imagem_ds.url }}" alt="Imagem DS de {{ ups.sala }}" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem DS disponível.</p>
+    {% endif %}
+    <p><strong>Energia Ativa da ETE:</strong> {{ ups.energia_ete }} Mw/h</p>
+    {% if ups.imagem_ete %}
+        <p><strong>Imagem Potência Ativa do DS:</strong></p>
+        <img src="{{ ups.imagem_ete.url }}" alt="Imagem Energia ativa da ETE" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem ETE disponível.</p>
+    {% endif %}
+
+    <p><strong>Energia Ativa da Portaria:</strong> {{ ups.energia_portaria }} Mw/h</p>
+    {% if ups.imagem_ete %}
+        <p><strong>Imagem Energia Ativa da Portaria:</strong></p>
+        <img src="{{ ups.imagem_portaria.url }}" alt="Imagem Energia ativa da Portaria" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem Portaria disponível.</p>
+    {% endif %}
+
+
+    <h3>UPS 1</h3>
+    <p><strong>UPS 1:</strong> {{ ups.ups1 }}</p>
+    <p><strong>Potência UPS 1:</strong> {{ ups.potencia_ups1 }} Kw</p>
+    {% if ups.imagem_ups1 %}
+        <p><strong>Imagem UPS 1:</strong></p>
+        <img src="{{ ups.imagem_ups1.url }}" alt="Imagem UPS 1" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem UPS 1 disponível.</p>
+    {% endif %}
+    <p><strong>Código 1:</strong> {{ ups.cod1 }}</p>
+    <p><strong>Energia COD1:</strong> {{ ups.energia_cod1 }} MW</p>
+    {% if ups.imagem_cod1 %}
+        <p><strong>Imagem Código 1:</strong></p>
+        <img src="{{ ups.imagem_cod1.url }}" alt="Imagem COD1" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem COD1 disponível.</p>
+    {% endif %}
+    {% if ups.imagem_cod1z %}
+        <p><strong>Imagem COD1 Zerado:</strong></p>
+        <img src="{{ ups.imagem_cod1z.url }}" alt="Imagem COD1 (Zerado)" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem COD1 zerado disponível.</p>
+    {% endif %}
+
+    <h3>UPS2</h3>
+    <p><strong>UPS2:</strong> {{ ups.ups2 }}</p>
+    <p><strong>Potência Ativa UPS 2:</strong> {{ ups.potencia_ups2 }} Kw</p>
+    {% if ups.imagem_ups2 %}
+        <p><strong>Imagem UPS2:</strong></p>
+        <img src="{{ ups.imagem_ups2.url }}" alt="Imagem UPS 2" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem UPS2 disponível.</p>
+    {% endif %}
+    <p><strong>COD2:</strong> {{ ups.cod2 }}</p>
+    <p><strong>Energia COD 2:</strong> {{ ups.energia_cod2 }} Mw/h</p>
+    {% if ups.imagem_cod2 %}
+        <p><strong>Imagem COD2:</strong></p>
+        <img src="{{ ups.imagem_cod2.url }}" alt="Imagem COD2" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem COD2 disponível.</p>
+    {% endif %}
+    {% if ups.imagem_cod2z %}
+        <p><strong>Imagem COD2 Zerado:</strong></p>
+        <img src="{{ ups.imagem_cod2z.url }}" alt="Imagem COD2 (Zerado)" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem COD2 zerado disponível.</p>
+    {% endif %}
+
+    <h3>Informações Adicionais</h3>
     <p><strong>Observação:</strong> {{ ups.observacao }}</p>
+    <p><strong>Nome do Técnico:</strong> {{ ups.nome_tecnico }}</p>
+    <p><strong>Data e Hora:</strong> {{ ups.data_hora|date:"d/m/Y H:i" }}</p>
+
+    <a href="{% url 'editar_ups' ups.pk %}">Editar</a>
+    <a href="{% url 'excluir_ups' ups.pk %}">Excluir</a>
+    <a href="{% url 'criar_ups' %}">Criar Novo Item</a> |
+    <a href="/">Voltar à Página Inicial</a>
     <a href="{% url 'ups_list' %}">Voltar para a lista</a>
-</body>
-</html>
-{% endblock %}
+    <!-- Espaço adicional -->
+    <div style="height: 60px;"></div>
+    </div>
+{% endblock content %}
