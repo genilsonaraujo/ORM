@@ -1,0 +1,34 @@
+{% extends 'ORM/base.html' %}
+
+{% block content %}
+<style>
+    /* Estiliza o formulário para remover margem entre os parágrafos */
+    form {
+        margin-left: 50px; /* Margem à esquerda para o formulário */
+    }
+
+    /* Remove a margem inferior dos parágrafos dentro do formulário */
+    form p {
+        margin-bottom: 5px; /* Ajuste o valor conforme necessário */
+    }
+    
+    body{
+        background-color: rgb(172, 180, 189);
+    }
+</style>
+    <!-- Espaço adicional -->
+    <div style="height: 60px;"></div>
+    </div>
+    <div>
+        <h3 style="margin-left: 50px">Adicionar UPS</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+    </div>
+    <!-- Espaço adicional -->
+    <div style="height: 300px;"></div>
+    </div>
+    
+{% endblock %}

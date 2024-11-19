@@ -1,0 +1,11 @@
+{% extends 'ORM/base.html' %}
+
+{% block content %}
+<h2>Excluir UPS</h2>
+<p>Tem certeza de que deseja excluir o item <strong>{{ ups.nome_ds }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    <a href="{% url 'detalhes_ups' ups.pk %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

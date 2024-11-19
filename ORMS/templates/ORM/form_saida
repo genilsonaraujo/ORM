@@ -1,0 +1,45 @@
+{% extends 'projetointegrador/base.html' %}
+
+
+{% block content %}
+<style>
+    
+    /* Estiliza o formulário para remover margem entre os parágrafos */
+    form {
+        margin-left: 30px; /* Margem à esquerda para o formulário */
+    }
+    /* Remove a margem inferior dos parágrafos dentro do formulário */
+    form {
+        margin-bottom: 5px; /* Ajuste o valor conforme necessário */
+    }
+    /* Estilo para o ícone */
+    .title-icon {
+        margin-right: 5px; /* Margem à direita para separar o ícone do texto */
+        color: #007bff; /* Cor do ícone (azul) */
+    }
+
+</style>
+
+<body>
+    <h3 class="ms-3" style="margin-left: 20px">Registro de Nova Saída<i class="fas fa-check-circle title-icon"></i> <!-- Ícone (por exemplo, um círculo de verificação) --></h3>
+    <div class="formulario">
+        <div class="table-responsive ml-3 mb-3" style="max-height: 400px;">
+                <thead class="table-dark">
+                    <form class="ml-3 align-items-center" method="post" class="row g-4" style="margin-left: 20px">
+                        <div>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-sm">Registrar Saída</button>
+                        <a href="{% url 'lista_produtos' %}" class="btn btn-success btn-sm" style="width: 150px; height: 30px;">Lista de Produtos</a>
+                    </form>
+                    
+                
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+{% endblock content %}
+

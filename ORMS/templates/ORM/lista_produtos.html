@@ -1,0 +1,53 @@
+{% extends 'ORM/base.html' %}
+
+{% block content %}
+    <h3 style="margin-left: 20px">Lista de Produtos</h3>
+        <div class="table-responsive">
+            <div class="table-responsive">
+                <table class="table table-bordered table-nover m-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Categoria</th>
+                            <th>Código</th>
+                            <th>Existente</th>
+                            <th>SKU</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
+                            <th>Ações</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produto in produtos %}
+                        <tr>
+                            <td class="imagem-celula" >{% if produto.imagem %}
+                                <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="width: 40px; height:auto;" class="imagem-produto" >
+                                {% else %}
+                                <img src="/static/images/default_image.jpg" alt="Imagem padrão" style="width: 100px; height: auto;">
+                                {% endif %}
+                            </td>
+                            <td>{{ produto.nome }} </td>
+                            <td>{{ produto.modelo }}</td>
+                            <td>{{ produto.marca }}</td>
+                            <td class="category-cell">{{ produto.categoria }}</td>
+                            <td>{{ produto.codigo }}</td>
+                            <td>{{ produto.existente }}</td>
+                            <td>{{ produto.sku }}</td>
+                            <td>{{ produto.preco }}</td> 
+                            <td>{{ produto.quantidade }}</td>
+                            <td>
+                                <a href="{% url 'editar_produto' produto_id=produto.id %}"class="btn btn-success btn-sm float-right" style="width: 80px; height: 30px;" >Editar</a></td>
+                            <td>   
+                                <a href="{% url 'remove_produto' produto.id %}" class="btn btn-danger btn-sm">Remover</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endblock content %}

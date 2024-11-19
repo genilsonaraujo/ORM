@@ -1,0 +1,24 @@
+
+{% extends "ORM/base.html" %} 
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de UPS</title>
+</head>
+<body>
+    <h1>Lista de UPS</h1>
+    <ul>
+        {% for ups in ups_list %}
+            <li>
+                <a href="{% url 'ups_detail' ups.id %}">Detalhes de {{ ups.nome_ds }}</a>
+            </li>
+        {% empty %}
+            <li>Nenhuma UPS encontrada.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}

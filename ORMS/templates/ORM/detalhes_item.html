@@ -1,0 +1,19 @@
+{% extends 'ORM/base.html' %}
+
+{% block content %}
+    <h3 style="margin-left: 20px">Sala</h3>
+    <h1>Detalhes do Item</h1>
+    <p><strong>Nome:</strong> {{ item.nome }}</p>
+
+    <p><strong>Campo 1:</strong> {{ item.campo1 }}</p>
+    <p><strong>Campo 2:</strong> {{ item.campo2 }}</p>
+    <p><strong>Descrição:</strong> {{ item.descricao }}</p>
+    {% if item.imagem %}
+        <img src="{{ item.imagem.url }}" alt="Imagem de {{ item.nome }}" style="max-width: 300px;">
+    {% else %}
+        <p>Sem imagem disponível.</p>
+    {% endif %}
+    <p><strong>Outro Campo:</strong> {{ item.outro_campo }}</p>
+    <a href="{% url 'criar_item' %}">Criar Novo Item</a> | 
+    <a href="/">Voltar à Página Inicial</a>
+{% endblock content %}

@@ -1,0 +1,32 @@
+
+
+
+
+
+{% extends "ORM/base.html" %} <!--  extensao do arquivo base  -->
+<style>
+    /* Estiliza o formulário para remover margem entre os parágrafos */
+    form {
+        margin-left: 20px; /* Margem à esquerda para o formulário */
+    }
+
+    /* Remove a margem inferior dos parágrafos dentro do formulário */
+    form {
+        margin-bottom: 5px; /* Ajuste o valor conforme necessário */
+    }
+</style>
+
+{% block content %}
+    <br/>
+    <br/>
+    <h3 style="margin-left: 20px">Fornecedores:</h3>
+    <ul>
+        {% for topic in topics %} <!--topic variavel -->
+            <li><!--com o link a baixo a pagina vai direto pata o link do id de topico, do ex. parafuso-->
+                <a href="{% url 'topic' topic.id %}">{{ topic }}</a</li> <!--nao vai ler a variavel mas sim o conteudo dentro-->
+        {% empty %}<!--se estiver vazio-->
+            <li>Não há Novos fornecedores</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'new_topic' %}"class="btn btn-success btn-sm float-right" style="width: 150px; height: 50px;">Adicionar novos Fornecedores</a>
+{% endblock content %}  

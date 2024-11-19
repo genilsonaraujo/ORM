@@ -1,0 +1,275 @@
+{% extends 'ORM/base.html' %}
+
+{% block content %}
+<style>
+    /* Estiliza o formulário */
+    form {
+        margin-left: 50px; /* Margem à esquerda para o formulário */
+    }
+
+    /* Remove a margem inferior dos parágrafos dentro do formulário */
+    form p {
+        margin-bottom: 5px; /* Ajuste o valor conforme necessário */
+    }
+    
+    body {
+        background-color: rgb(172, 180, 189);
+        
+    }
+    h3 {
+        font-size: 18px;
+    }
+    .field-info {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+    label {
+            /*background-color: #f0f8ff;*/
+            color: #333;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+    background-color: #f0f8ff; /* Cor de fundo */
+    border: 2px solid #4CAF50; /* Cor da borda */
+    color: #333; /* Cor do texto */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho do texto */
+    border-radius: 5px; /* Bordas arredondadas */
+
+    width: 600px; /* Define a largura */
+    height: 15px; /* Define a altura */
+    resize: none; /* Impede redimensionamento manual (opcional) */
+        }
+
+    input[type="text"]:focus {
+    outline: none; /* Remove o contorno padrão */
+    border-color: #0056b3; /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Efeito de brilho */
+    }  
+input[type="number"] {
+    background-color: #ccf8d0; /* Cor de fundo */
+    border: 2px solid #4CAF50; /* Cor da borda */
+    color: #333; /* Cor do texto */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho do texto */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-align: left; /* Alinha os números à direita */
+
+    width: 600px; /* Define a largura */
+    height: 15px; /* Define a altura */
+    resize: none; /* Impede redimensionamento manual (opcional) */
+}
+
+input[type="number"]:focus {
+    outline: none; /* Remove o contorno padrão */
+    border-color: #0056b3; /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Efeito de brilho */
+}
+</style>
+
+<div style="height: 60px;"></div>
+
+<div>
+    <h3 style="margin-left: 50px">Adicionar UPS</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Campo: Sala -->
+    <div>
+            {{ form.sala.label_tag }}
+            <div>
+            {{ form.sala }}
+            </div>
+            <div class="field-info">Informe a Sala de UPS</div>
+        </div>
+        <!-- Campo: Meu Campo Select -->
+        <div>
+            {{ form.meu_campo_select.label_tag }}
+            {{ form.meu_campo_select }}
+            <div class="field-info">Selecione a Fonte.</div>
+        </div>
+        <!-- Campo: Nome DS -->
+        <div>
+            {{ form.nome_ds.label_tag }}
+            <div>
+            {{ form.nome_ds }}</div>
+            <div class="field-info">Nome do Painel DS.</div>
+        </div>
+
+        <!-- Campo: Potência DS -->
+        <div>
+            {{ form.potencia_ds.label_tag }}
+            <div>
+                {{ form.potencia_ds }}</div>
+            <div class="field-info">Potência Nominal do Painel DS em (Kwatts).</div>
+        </div>
+
+        <!-- Campo: Imagem DS -->
+        <div>
+            {{ form.imagem_ds.label_tag }}
+            <div>{{ form.imagem_ds }}</div>
+            <div class="field-info">Imagem Potência Sepam do Painel DS.</div>
+        </div>
+        <!-- Campo: Nome ETE -->
+        <!--<div>
+            <h3>ETE</h3>
+        </div>-->
+
+        <!-- Campo: Potencia Ativa ETE  -->
+        <div>
+            {{ form.energia_ete.label_tag }}
+            <div>{{ form.energia_ete }}</div>
+            <div class="field-info">Energia Ativa ETE(Kw/h).</div>
+        </div>
+
+        <!-- Campo: Imagem ETE -->
+        <div>
+            {{ form.imagem_.label_tag }}
+            <div>{{ form.imagem_ete }}</div>
+            <div class="field-info">Imagem Energia Ativa ETE.</div>
+        </div>
+
+        <!-- Campo: Nome Portaria -->
+    
+        <!-- Campo: Potencia Ativa Portaria -->
+        <div>
+            {{ form.energia_portaria.label_tag }}
+            <div>{{ form.energia_portaria }}</div>
+            <div class="field-info">Energia Ativa Portaria(Kw/h).</div>
+        </div>
+
+        <!-- Campo: Imagem ETE -->
+        <div>
+            {{ form.imagem_.label_tag }}
+            <div>{{ form.imagem_ete }}</div>
+            <div class="field-info">Imagem Energia Ativa ETE.</div>
+        </div>
+        <!-- Campo: UPS 1 -->
+        <div>
+            {{ form.ups1.label_tag }}
+            <div>{{ form.ups1 }}</div>
+            <div class="field-info">Nome do UPS1.</div>
+        </div>
+
+        <!-- Campo: Potência UPS 1 -->
+        <div>
+            {{ form.potencia_ups1.label_tag }}
+            <div>{{ form.potencia_ups1 }}</div>
+            <div class="field-info">Potência do UPS1.</div>
+        </div>
+
+        <!-- Campo: Imagem UPS 1 -->
+        <div>
+            {{ form.imagem_ups1.label_tag }}
+            <div>{{ form.imagem_ups1 }}</div>
+            <div class="field-info">Imagem UPS1.</div>
+        </div>
+
+        <!-- Campo: Código 1 -->
+        <div>
+            {{ form.cod1.label_tag }}
+            <div>{{ form.cod1 }}</div>
+            <div class="field-info">nome COD1.</div>
+        </div>
+
+        <!-- Campo: Energia Código 1 -->
+        <div>
+            {{ form.energia_cod1.label_tag }}
+            <div>{{ form.energia_cod1 }}</div>
+            <div class="field-info">Quantidade de energia fornecida pelo COD1.</div>
+        </div>
+
+        <!-- Campo: Imagem Código 1 -->
+        <div>
+            {{ form.imagem_cod1.label_tag }}
+            <div>{{ form.imagem_cod1 }}</div>
+            <div class="field-info">Imagem do COD1.</div>
+        </div>
+
+        <!-- Campo: Imagem Código 1Z -->
+        <div>
+            {{ form.imagem_cod1z.label_tag }}
+            <div>{{ form.imagem_cod1z }}</div>
+            <div class="field-info">Imagem do COD1 (zerado).</div>
+        </div>
+
+        <!-- Campo: UPS 2 -->
+        <div>
+            {{ form.ups2.label_tag }}
+            <div>{{ form.ups2 }}</div>
+            <div class="field-info">Nome do UPS2.</div>
+        </div>
+
+        <!-- Campo: Potência UPS 2 -->
+        <div>
+            {{ form.potencia_ups2.label_tag }}
+            <div>{{ form.potencia_ups2 }}</div>
+            <div class="field-info">Potência nominal do UPS 2.</div>
+        </div>
+
+        <!-- Campo: Imagem UPS 2 -->
+        <div>
+            {{ form.imagem_ups2.label_tag }}
+            <div>{{ form.imagem_ups2 }}</div>
+            <div class="field-info">Imagem do UPS2.</div>
+        </div>
+
+        <!-- Campo: Código 2 -->
+        <div>
+            {{ form.cod2.label_tag }}
+            <div>{{ form.cod2 }}</div>
+            <div class="field-info">Nome COD2.</div>
+        </div>
+
+        <!-- Campo: Energia Código 2 -->
+        <div>
+            {{ form.energia_cod2.label_tag }}
+            <div>{{ form.energia_cod2 }}</div>
+            <div class="field-info">Quantidade de energia fornecida pelo componente 2.</div>
+        </div>
+
+        <!-- Campo: Imagem Código 2 -->
+        <div>
+            {{ form.imagem_cod2.label_tag }}
+            <div>{{ form.imagem_cod2 }}</div>
+            <div class="field-info">Imagem do COD2.</div>
+        </div>
+
+        <!-- Campo: Imagem Código 2Z -->
+        <div>
+            {{ form.imagem_cod2z.label_tag }}
+            <div>{{ form.imagem_cod2z }}</div>
+            <div class="field-info">Imagem adicional do COD2 (zerado).</div>
+        </div>
+
+        <!-- Campo: Observação -->
+        <div>
+            {{ form.observacao.label_tag }}
+            <div>{{ form.observacao }}</div>
+            <div class="field-info">Adicione qualquer observação ou nota relevante.</div>
+        </div>
+
+        <!-- Campo: Nome Técnico -->
+        <div>
+            {{ form.nome_tecnico.label_tag }}
+            <div>{{ form.nome_tecnico }}</div>
+            <div class="field-info">Nome do técnico responsável pela configuração.</div>
+        </div>
+
+        <!-- Campo: Data e Hora -->
+        <div>
+            {{ form.data_hora.label_tag }}
+            <div>{{ form.data_hora }}</div>
+            <div class="field-info">Data e hora do registro.</div>
+        </div>
+
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+
+<div style="height: 300px;"></div>
+{% endblock %}
+
