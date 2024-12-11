@@ -235,77 +235,75 @@ def ups_detail(request, pk):
 
 
 def gerar_relatorio_powerpoint():
-    # Criar uma apresentação PowerPoint
     prs = Presentation()
-
-    # Obter todas as instâncias de SalaUps
     salas = SalaUps.objects.all()
 
     for sala in salas:
-        # Slide para UPSs
-        ups_slide = prs.slides.add_slide(prs.slide_layouts[5])  # Slide básico sem título
-        ups_title = ups_slide.shapes.title
-        ups_title.text = f"UPSs - Sala: {sala.sala}"
+        # Adiciona um slide com layout em branco
+        slide = prs.slides.add_slide(prs.slide_layouts[6])  # Slide vazio
 
-        ups_text = (
+        # Adiciona o título no topo
+        title_box = slide.shapes.add_textbox(left=Inches(0.5), top=Inches(0.3), width=Inches(9), height=Inches(0.8))
+        title_frame = title_box.text_frame
+        title_frame.text = f"Sala: {sala.sala}"
+        title_frame.paragraphs[0].font.bold = True
+        title_frame.paragraphs[0].font.size = Pt(24)
+
+        # Adiciona informações textuais na lateral esquerda
+        text_box = slide.shapes.add_textbox(left=Inches(0.5), top=Inches(1.5), width=Inches(4.5), height=Inches(5))
+        text_frame = text_box.text_frame
+        text_frame.text = (
+            f"Nome DS: {sala.nome_ds}\n"
+            f"Potência DS: {sala.potencia_ds}\n"
+            f"Energia ETE: {sala.energia_ete}\n"
+            f"Energia Portaria: {sala.energia_portaria}\n"
             f"UPS1: {sala.ups1}, Potência: {sala.potencia_ups1}\n"
-            f"UPS2: {sala.ups2}, Potência: {sala.potencia_ups2}"
-        )
-        ups_text_box = ups_slide.shapes.add_textbox(Inches(0.5), Inches(1), Inches(5.5), Inches(2))
-        ups_tf = ups_text_box.text_frame
-        ups_tf.text = ups_text
-
-        ups_images = [sala.imagem_ups1, sala.imagem_ups2]
-        img_left = Inches(0.5)
-        img_top = Inches(2.5)
-        for i, img in enumerate(ups_images):
-            if img:  # Verificar se a imagem existe
-                img_path = os.path.join(settings.MEDIA_ROOT, img.name)
-                if os.path.exists(img_path):
-                    ups_slide.shapes.add_picture(img_path, img_left, img_top, width=Inches(2))
-                    img_caption = ups_slide.shapes.add_textbox(img_left, img_top + Inches(2), Inches(2), Inches(0.5))
-                    img_caption.text_frame.text = f"UPS {i + 1}"
-                    img_left += Inches(2.5)
-
-        # Slide para CODs
-        cod_slide = prs.slides.add_slide(prs.slide_layouts[5])
-        cod_title = cod_slide.shapes.title
-        cod_title.text = f"CODs - Sala: {sala.sala}"
-
-        cod_text = (
+            f"UPS2: {sala.ups2}, Potência: {sala.potencia_ups2}\n"
             f"Código 1: {sala.cod1}, Energia: {sala.energia_cod1}\n"
-            f"Código 2: {sala.cod2}, Energia: {sala.energia_cod2}"
-        )
-        cod_text_box = cod_slide.shapes.add_textbox(Inches(0.5), Inches(1), Inches(5.5), Inches(2))
-        cod_tf = cod_text_box.text_frame
-        cod_tf.text = cod_text
-
-        cod_images = [sala.imagem_cod1, sala.imagem_cod1z, sala.imagem_cod2, sala.imagem_cod2z]
-        img_left = Inches(0.5)
-        img_top = Inches(2.5)
-        for i, img in enumerate(cod_images):
-            if img:
-                img_path = os.path.join(settings.MEDIA_ROOT, img.name)
-                if os.path.exists(img_path):
-                    cod_slide.shapes.add_picture(img_path, img_left, img_top, width=Inches(2))
-                    img_caption = cod_slide.shapes.add_textbox(img_left, img_top + Inches(2), Inches(2), Inches(0.5))
-                    img_caption.text_frame.text = f"COD {i + 1}"
-                    img_left += Inches(2.5)
-
-        # Slide para observações gerais
-        obs_slide = prs.slides.add_slide(prs.slide_layouts[5])
-        obs_title = obs_slide.shapes.title
-        obs_title.text = f"Observações - Sala: {sala.sala}"
-
-        obs_text_box = obs_slide.shapes.add_textbox(Inches(0.5), Inches(1), Inches(5.5), Inches(4))
-        obs_tf = obs_text_box.text_frame
-        obs_tf.text = (
+            f"Código 2: {sala.cod2}, Energia: {sala.energia_cod2}\n"
             f"Observação: {sala.observacao}\n"
             f"Técnico: {sala.nome_tecnico}\n"
             f"Data/Hora: {sala.data_hora.strftime('%d/%m/%Y %H:%M')}"
         )
+        for paragraph in text_frame.paragraphs:
+            paragraph.font.size = Pt(14)
 
-    # Salvar o PowerPoint
+        # Adiciona imagens na parte inferior, alinhadas horizontalmente
+        imagens = [
+            ("Imagem DS", sala.imagem_ds),
+            ("Imagem ETE", sala.imagem_ete),
+            ("Imagem Portaria", sala.imagem_portaria),
+            ("UPS 1", sala.imagem_ups1),
+            ("UPS 2", sala.imagem_ups2),
+            ("Código 1", sala.imagem_cod1),
+            ("Código 1 (Zoom)", sala.imagem_cod1z),
+            ("Código 2", sala.imagem_cod2),
+            ("Código 2 (Zoom)", sala.imagem_cod2z),
+        ]
+
+        img_left = Inches(0.5)  # Posição inicial da imagem
+        img_top = Inches(6)  # Linha das imagens
+        img_width = Inches(1.5)  # Largura padrão de cada imagem
+
+        for nome, imagem in imagens:
+            if imagem and os.path.exists(os.path.join(settings.MEDIA_ROOT, imagem.name)):
+                img_path = os.path.join(settings.MEDIA_ROOT, imagem.name)
+                
+                # Adiciona a imagem proporcional
+                slide.shapes.add_picture(img_path, img_left, img_top, width=img_width)
+
+                # Adiciona o texto abaixo da imagem
+                text_box = slide.shapes.add_textbox(left=img_left, top=img_top + Inches(2.1), width=img_width, height=Inches(0.5))
+                text_frame = text_box.text_frame
+                paragraph = text_frame.add_paragraph()
+                paragraph.text = nome
+                paragraph.font.size = Pt(12)
+                paragraph.font.color.rgb = RGBColor(0, 0, 0)  # Preto
+                paragraph.alignment = 1  # Centralizar o texto
+
+                img_left += Inches(2.5)  # Adiciona espaço entre as imagens
+
+    # Salva o PowerPoint
     relatorio_path = os.path.join(settings.BASE_DIR, "relatorios", "relatorio_salas.ppsx")
     prs.save(relatorio_path)
     return relatorio_path
