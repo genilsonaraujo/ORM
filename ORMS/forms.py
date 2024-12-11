@@ -41,6 +41,7 @@ class SalaUpsForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Tornar os campos específicos não obrigatórios
+        self.fields['nome_ds'].required = False
         self.fields['potencia_ds'].required = False
         self.fields['energia_ete'].required = False
         self.fields['imagem_ete'].required = False

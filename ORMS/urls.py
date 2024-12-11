@@ -55,6 +55,8 @@ urlpatterns = [ #ROTAS
 
     path('ups/', views.ups_list, name='ups_list'),  # Lista de UPS
     path('ups/<int:pk>/', views.ups_detail, name='ups_detail'),  # Para detalhes de uma UPS específica
+
+    path('download_relatorio/', views.download_relatorio, name='download_relatorio'),
     
     #path('produte/', ProdutoListCreateAPIView.as_view(), name='produto-list-create'),#API, Dá um nome à rota para facilitar sua referência em outras partes do código, como templates ou redirecionamentos.
     #path('produte/<int:pk>/', ProdutoDetailAPIView.as_view(), name='produto-detail'),#rota produto id

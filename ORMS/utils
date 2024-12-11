@@ -1,0 +1,69 @@
+# minha_app/utils.py
+from pptx import Presentation
+from pptx.util import Inches
+import os
+from django.conf import settings
+from ORMS.models import SalaUps  # Altere para o nome real do seu app
+
+def gerar_relatorio_powerpoint():
+    # Criar uma apresentação PowerPoint
+    prs = Presentation()
+
+    # Obter todas as instâncias de SalaUps
+    salas = SalaUps.objects.all()
+
+    for sala in salas:
+        # Criar um slide para cada sala
+        slide = prs.slides.add_slide(prs.slide_layouts[5])  # Layout básico sem título
+
+        # Adicionar título da sala
+        title = slide.shapes.title
+        title.text = f"Sala: {sala.sala}"
+
+        # Adicionar informações textuais
+        left = Inches(0.5)
+        top = Inches(1)
+        width = Inches(5.5)
+        height = Inches(4)
+        text_box = slide.shapes.add_textbox(left, top, width, height)
+        tf = text_box.text_frame
+        tf.text = (
+            f"Nome DS: {sala.nome_ds}\n"
+            f"Potência DS: {sala.potencia_ds}\n"
+            f"Energia ETE: {sala.energia_ete}\n"
+            f"Energia Portaria: {sala.energia_portaria}\n"
+            f"UPS1: {sala.ups1}, Potência: {sala.potencia_ups1}\n"
+            f"UPS2: {sala.ups2}, Potência: {sala.potencia_ups2}\n"
+            f"Código 1: {sala.cod1}, Energia: {sala.energia_cod1}\n"
+            f"Código 2: {sala.cod2}, Energia: {sala.energia_cod2}\n"
+            f"Observação: {sala.observacao}\n"
+            f"Técnico: {sala.nome_tecnico}\n"
+            f"Data/Hora: {sala.data_hora.strftime('%d/%m/%Y %H:%M')}"
+        )
+
+        # Adicionar imagens
+        imagens = [
+            sala.imagem_ds,
+            sala.imagem_ete,
+            sala.imagem_portaria,
+            sala.imagem_ups1,
+            sala.imagem_ups2,
+            sala.imagem_cod1,
+            sala.imagem_cod1z,
+            sala.imagem_cod2,
+            sala.imagem_cod2z,
+        ]
+
+        top = Inches(3.5)
+        left = Inches(0.5)
+        for imagem in imagens:
+            if imagem:  # Verificar se há uma imagem associada
+                img_path = os.path.join(settings.MEDIA_ROOT, imagem.name)
+                if os.path.exists(img_path):  # Verificar se o arquivo existe
+                    slide.shapes.add_picture(img_path, left, top, width=Inches(2))
+                    left += Inches(2.2)  # Ajustar a posição horizontal para a próxima imagem
+
+    # Salvar o PowerPoint
+    relatorio_path = os.path.join(settings.BASE_DIR, "relatorios", "relatorio_salas.ppsx")
+    prs.save(relatorio_path)
+    return relatorio_path
