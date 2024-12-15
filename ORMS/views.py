@@ -236,10 +236,12 @@ def ups_detail(request, pk):
 
 def gerar_relatorio_powerpoint():
     prs = Presentation()
+    imagens_por_slide = 4  # Define o limite de imagens por slide
+
     salas = SalaUps.objects.all()
 
     for sala in salas:
-        # Adiciona um slide com layout em branco
+        # Adiciona o primeiro slide com layout em branco
         slide = prs.slides.add_slide(prs.slide_layouts[6])  # Slide vazio
 
         # Adiciona o título no topo
@@ -250,7 +252,7 @@ def gerar_relatorio_powerpoint():
         title_frame.paragraphs[0].font.size = Pt(24)
 
         # Adiciona informações textuais na lateral esquerda
-        text_box = slide.shapes.add_textbox(left=Inches(0.5), top=Inches(1.5), width=Inches(4.5), height=Inches(5))
+        text_box = slide.shapes.add_textbox(left=Inches(0.5), top=Inches(1), width=Inches(4.5), height=Inches(4.5))
         text_frame = text_box.text_frame
         text_frame.text = (
             f"Nome DS: {sala.nome_ds}\n"
@@ -259,8 +261,8 @@ def gerar_relatorio_powerpoint():
             f"Energia Portaria: {sala.energia_portaria}\n"
             f"UPS1: {sala.ups1}, Potência: {sala.potencia_ups1}\n"
             f"UPS2: {sala.ups2}, Potência: {sala.potencia_ups2}\n"
-            f"Código 1: {sala.cod1}, Energia: {sala.energia_cod1}\n"
-            f"Código 2: {sala.cod2}, Energia: {sala.energia_cod2}\n"
+            f"COD1: {sala.cod1}, Energia: {sala.energia_cod1}\n"
+            f"COD2: {sala.cod2}, Energia: {sala.energia_cod2}\n"
             f"Observação: {sala.observacao}\n"
             f"Técnico: {sala.nome_tecnico}\n"
             f"Data/Hora: {sala.data_hora.strftime('%d/%m/%Y %H:%M')}"
@@ -268,42 +270,54 @@ def gerar_relatorio_powerpoint():
         for paragraph in text_frame.paragraphs:
             paragraph.font.size = Pt(14)
 
-        # Adiciona imagens na parte inferior, alinhadas horizontalmente
+        # Lista de imagens associadas à sala
         imagens = [
             ("Imagem DS", sala.imagem_ds),
             ("Imagem ETE", sala.imagem_ete),
             ("Imagem Portaria", sala.imagem_portaria),
-            ("UPS 1", sala.imagem_ups1),
-            ("UPS 2", sala.imagem_ups2),
-            ("Código 1", sala.imagem_cod1),
-            ("Código 1 (Zoom)", sala.imagem_cod1z),
-            ("Código 2", sala.imagem_cod2),
-            ("Código 2 (Zoom)", sala.imagem_cod2z),
+            ("UPS1", sala.imagem_ups1),
+            ("UPS2", sala.imagem_ups2),
+            ("COD1", sala.imagem_cod1),
+            ("COD1 (Zerado)", sala.imagem_cod1z),
+            ("COD2", sala.imagem_cod2),
+            ("COD2 (Zerado)", sala.imagem_cod2z),
         ]
 
-        img_left = Inches(0.5)  # Posição inicial da imagem
-        img_top = Inches(6)  # Linha das imagens
+        img_left = Inches(0.5)  # Posição inicial horizontal
+        img_top = Inches(4)    # Posição inicial vertical
         img_width = Inches(1.5)  # Largura padrão de cada imagem
+        count = 0  # Contador de imagens no slide
 
         for nome, imagem in imagens:
             if imagem and os.path.exists(os.path.join(settings.MEDIA_ROOT, imagem.name)):
+                # Verifica se precisa criar um novo slide
+                if count == imagens_por_slide:
+                    slide = prs.slides.add_slide(prs.slide_layouts[6])  # Novo slide
+                    img_left = Inches(0.5)  # Reinicia a posição horizontal
+                    img_top = Inches(4)    # Reinicia a posição vertical
+                    count = 0
+
                 img_path = os.path.join(settings.MEDIA_ROOT, imagem.name)
-                
-                # Adiciona a imagem proporcional
+
+                # Adiciona a imagem ao slide
                 slide.shapes.add_picture(img_path, img_left, img_top, width=img_width)
 
                 # Adiciona o texto abaixo da imagem
-                text_box = slide.shapes.add_textbox(left=img_left, top=img_top + Inches(2.1), width=img_width, height=Inches(0.5))
+                text_box = slide.shapes.add_textbox(
+                    left=img_left, top=img_top + Inches(1.1), width=img_width, height=Inches(0.5)
+                )
                 text_frame = text_box.text_frame
                 paragraph = text_frame.add_paragraph()
                 paragraph.text = nome
                 paragraph.font.size = Pt(12)
-                paragraph.font.color.rgb = RGBColor(0, 0, 0)  # Preto
-                paragraph.alignment = 1  # Centralizar o texto
+                paragraph.font.color.rgb = RGBColor(0, 0, 0)
+                paragraph.alignment = 1
 
-                img_left += Inches(2.5)  # Adiciona espaço entre as imagens
+                # Atualiza a posição horizontal e o contador
+                img_left += Inches(2.5)  # Espaçamento horizontal entre imagens
+                count += 1
 
-    # Salva o PowerPoint
+    # Salva o arquivo PowerPoint
     relatorio_path = os.path.join(settings.BASE_DIR, "relatorios", "relatorio_salas.ppsx")
     prs.save(relatorio_path)
     return relatorio_path
@@ -311,6 +325,8 @@ def gerar_relatorio_powerpoint():
 def download_relatorio(request):
     relatorio_path = gerar_relatorio_powerpoint()
     return FileResponse(open(relatorio_path, 'rb'), as_attachment=True, filename='relatorio_salas.ppsx')
+
+
 
 #@login_required#RESTRICAO DA PAGINA
 #def lista_saida(request):
