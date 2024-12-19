@@ -1,10 +1,10 @@
-# Gerenciador de Estoque 
+ORM 
 
 ![Lista de Produtos](projetointegradors/static/lista_produto.png)
 
 ## Overview
 
-O Gerenciador de Produtos é uma aplicação web desenvolvida utilizando o framework Django. Este sistema tem como objetivo auxiliar a "Paloma Comércio de Parafusos e Materiais em Geral" no gerenciamento eficiente de seu estoque, proporcionando funcionalidades essenciais e uma solução acessível.
+O Gerenciador de Produtos é uma aplicação web desenvolvida utilizando o framework Django. Este sistema tem como objetivo auxiliar empresas no gerenciamento eficas atraves de Indicadores-chave de Desempenho (KPIs), proporcionando funcionalidades essenciais e uma solução acessívela traves de metricas quantitativas e qualitativas que ajudam medir grandeses e metricas ao longo do tempo.
 
 ## Funcionalidades Principais
 
@@ -18,7 +18,7 @@ O Gerenciador de Produtos é uma aplicação web desenvolvida utilizando o frame
 
 ## Problema Abordado
 
-O principal desafio enfrentado pela "Paloma Comércio de Parafusos e Materiais em Geral" é a falta de opções de gerenciadores de estoque acessíveis no mercado. Ferramentas tradicionais muitas vezes apresentam custos proibitivos para pequenos empreendimentos, o que motivou o desenvolvimento deste sistema para atender às necessidades específicas do negócio.
+O principal desafio enfrentado pela "Empresa de manutenção elétrica" é a falta de um sistema ORM que gerencie e facilite a coleta de KPI mensal, onde o balanço ou levantamento é feito de forma manual, atraves do sistema ORM os dados coletas serão armazenadadios em um banco de dados, onde será possivel realizar pesquisa, tanbem serão gerador arquivos pptx, csv, pdf, facilitando a importação de planilhas e ganhando tempo dos relatorios.
 
 ## Pré-requisitos
 
