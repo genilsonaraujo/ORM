@@ -58,9 +58,9 @@ Este projeto é distribuído sob a licença [Nome da Licença]. Veja o arquivo L
 
 
 
-# Paloma Comércio - Gerenciador de Estoque
+# ORM 
 
-Este projeto é um Sistema de Gestão de Estoque desenvolvido para a "Paloma Comércio de Parafusos e Materiais em Geral". A aplicação é construída utilizando o framework Django e tem como objetivo proporcionar uma solução eficiente e acessível para o controle de estoque de pequenos empreendimentos.
+Projeto de gestão de ativos., criação de OS, Check-list e Indicadores de Desempenho KPI.
 
 ## Funcionalidades
 
